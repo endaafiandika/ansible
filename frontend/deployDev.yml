@@ -1,6 +1,6 @@
 ---
   - name: 'Deploy to Production'
-    hosts: dev-server
+    hosts: devserver
     vars_files:
       - vars.yml
     vars:

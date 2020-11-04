@@ -56,23 +56,23 @@
         args:
           chdir: "{{dests}}/{{proj}}"
 
-      - name: Stop Docker Compose
-        args:
-          chdir: "{{dests}}/{{proj}}"
-        command: docker-compose stop
-        register: rm
-        failed_when: rm.rc != 1 and rm.rc != 0
+      # - name: Stop Docker Compose
+      #   args:
+      #     chdir: "{{dests}}/{{proj}}"
+      #   command: docker-compose stop
+      #   register: rm
+      #   failed_when: rm.rc != 1 and rm.rc != 0
 
-      - name: Remove Frontend Container
-        command: docker rm frontend
-        register: rm
-        failed_when: rm.rc != 1 and rm.rc != 0
+      # - name: Remove Frontend Container
+      #   command: docker rm frontend
+      #   register: rm
+      #   failed_when: rm.rc != 1 and rm.rc != 0
 
-      - name: Remove image
-        community.general.docker_image:
-          state: absent
-          name: "{{hub}}/{{proj}}"
-          tag: "{{branch}}"
+      # - name: Remove image
+      #   community.general.docker_image:
+      #     state: absent
+      #     name: "{{hub}}/{{proj}}"
+      #     tag: "{{branch}}"
 
       - name: "Build image Dev and Stag"
         community.general.docker_image:
