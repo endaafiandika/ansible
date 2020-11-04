@@ -1,7 +1,6 @@
 localhost
 [frontend]
-dev-server ansible_host=172.31.16.90 ansible_connection=ssh ansible_user=ansman
-prod-server ansible_host=ansman@172.31.82.152 ansible_connection=ssh
+devserver ansible_host=172.31.54.224 ansible_connection=ssh
 
 [staging]
 staging-server ansible_host=ansman@172.31.93.85 ansible_connection=ssh
