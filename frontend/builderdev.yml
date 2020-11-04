@@ -82,7 +82,7 @@
             dockerfile: Dockerfile
           source: build
           state: present
-        when: branch=="dev"
+        when: branch=="development"
           
       
       - name: "Build image Prod"
@@ -92,5 +92,5 @@
             path: "{{dests}}/{{proj}}"
           source: build
           state: present
-        when: branch=="prod"
+        when: branch=="production"
         
