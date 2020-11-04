@@ -51,7 +51,7 @@
           version: "{{branch}}"
           update: yes
         register: clone
-        failed_when: clone.rc=1 and clone.rc=0
+        failed_when: clone.rc !=1 and clone.rc != 0
 
       - name: Pull latest changes
         command: git pull origin {{branch}}
