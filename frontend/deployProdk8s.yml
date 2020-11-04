@@ -1,0 +1,42 @@
+---
+  - name: 'Deploy to Production'
+    hosts: k8s-controll
+    vars_files:
+      - vars.yml
+    vars:
+      - branch: "prod"
+
+    tasks:
+      - name: "Check connection to node"
+        ping:
+      
+      # - name: Stop Cluster
+      #   command: kops delete cluster --name=$NAME --state=$KOPS_STATE_STORE --yes
+
+      # - name: Make New Cluster
+      #   command: kops create cluster --cloud=aws --zones=us-east-1a --name=$NAME --node-size=t2.medium --master-size=t2.medium --dns-zone=example.com --dns private
+
+      # - name: next configuration Cluster
+      #   command: kops update cluster --name=$NAME --yes
+
+      - name: apply yaml file
+        command: kubectl apply -f example-rollout.yaml
+
+      # # # - name: Send docker-compose.yml to server
+      # # #   copy:
+      # # #     src: "{{dests}}/{{proj}}/{{dockercomposeProd}}"
+      # # #     dest: "{{remote_file}}/{{dockercomposeProd}}"
+      # # #     owner: "{{user}}"
+      # # #     group: "{{user}}"
+      # #     mode: "u+x,g+x"
+
+      # - name: Run Docker Compose
+      #   args:
+      #     chdir: "{{dests}}/{{proj}}"
+      #   command: docker-compose up -d
+
+      # - name: push docker hub
+      #   args:
+      #     chdir: "{{dests}}/{{proj}}"
+      #   command: docker push {{hub}}/{{proj}}:{{branch}}
+          

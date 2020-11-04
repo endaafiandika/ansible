@@ -1,0 +1,11 @@
+---
+    hub: "endaafiandika"
+    proj: "food-frontend"
+    dests: /home/ansible/project
+    repo: https://github.com/endaafiandika/food-frontend.git
+    urlTest: "http://localhost"
+    portTest: "8080"
+    user: ansman
+    remote_file: /home/ansible/cafe
+    dockercompose: docker-compose.yml
+   

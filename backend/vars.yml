@@ -1,0 +1,11 @@
+---
+    hub: "afsanarozan"
+    proj: "cafe-backend"
+    dests: /home/ansman/project
+    repo: https://github.com/afsanarozan/cafe-backend.git
+    urlTest: "http://localhost"
+    portTest: "8080"
+    user: ansman
+    remote_file: /home/ansman/cafe
+    dockercompose: docker-compose.yml
+   

@@ -1,0 +1,97 @@
+---
+  - name: Build Docker
+    hosts: db-center
+    vars_files:
+      - vars.yml
+
+    tasks:
+      - name: Check connection node
+        become: true
+        ping:
+      
+      - name: Install Docker
+        become: true
+        yum:
+          name: docker
+          state: present
+      
+      - name: Ensure docker is running
+        become: true
+        service:
+          name: docker
+          state: started
+          enabled: yes
+      
+      - name: Add user to group Docker
+        become: true
+        user:
+          name: ansman
+          shell: /bin/bash
+          groups: docker
+          append: yes
+          
+      - name: "Ensure git installed"
+        become: true
+        yum:
+          name: git
+          state: present
+      
+      - name: "Installing Python Docker"
+        become: true
+        pip:
+          name: docker
+      
+      - name: "Clone Git Repository"
+        git:
+          repo: "{{repo}}"
+          dest: "{{dests}}/{{proj}}"
+          update: yes
+
+      - name: Pull latest changes
+        command: git pull 
+        args:
+          chdir: "{{dests}}/{{proj}}"
+  
+      - name: Stop Docker container
+        command: docker stop cafe-backend_nodejs_1 cafe-backend_postgres_1
+        register: stp
+        failed_when: stp.rc != 1 and stp.rc != 0
+
+      - name: Remove Frontend Container
+        command: docker rm cafe-backend_nodejs_1
+        register: rm
+        failed_when: rm.rc != 1 and rm.rc != 0
+
+      - name: Remove image
+        command: docker rmi {{hub}}/{{proj}}
+        register: rmi
+        failed_when: rmi.rc != 1 and rmi.rc != 0
+
+      - name: remove postgres-data
+        become: true
+        command: rm -r postgres-data
+        args:
+          chdir: "{{dests}}/{{proj}}"
+        register: db
+        failed_when: db.rc != 1 and db.rc != 0
+
+      # - name: Remove image
+      #   community.general.docker_image:
+      #     state: absent
+      #     name: "{{hub}}/{{proj}}"
+
+      # - name: "Build image"
+      #   community.general.docker_image:
+      #     name: "{{hub}}/{{proj}}"
+      #     build:
+      #       path: "{{dests}}/{{proj}}"
+      #       dockerfile: Dockerfile
+      #     source: build
+      #     state: present
+
+      - name: Build Image
+        command: docker build -t {{hub}}/{{proj}} .
+        args:
+          chdir: "{{dests}}/{{proj}}"
+  
+        
