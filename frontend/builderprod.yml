@@ -57,11 +57,9 @@
             chdir: "{{dests}}/{{proj}}"
 
         - name: Stop Docker Compose
-            args:
-              chdir: "{{dests}}/{{proj}}"
-            command: docker-compose stop
-            register: rm
-            failed_when: rm.rc != 1 and rm.rc != 0
+          args:
+            chdir: "{{dests}}/{{proj}}"
+          command: docker-compose stop
 
         - name: Remove Frontend Container
           command: docker rm frontend
