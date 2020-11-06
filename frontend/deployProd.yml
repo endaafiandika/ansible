@@ -1,10 +1,10 @@
 ---
     - name: 'Deploy to Production'
-      hosts: prod-server
+      hosts: prodserver
       vars_files:
         - vars.yml
       vars:
-        - branch: "prod"
+        - branch: "production"
   
       tasks:
         - name: "Check connection to node"
@@ -26,7 +26,7 @@
         - name: Add user to group Docker
           become: true
           user:
-            name: ansman
+            name: ansible
             shell: /bin/bash
             groups: docker
             append: yes
