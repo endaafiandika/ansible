@@ -1,10 +1,10 @@
 ---
     - name: Build Docker
-      hosts: prod-server
+      hosts: prodserver
       vars_files:
         - vars.yml
       vars:
-        - branch: "prod"
+        - branch: "production"
         
   
       tasks:
@@ -28,7 +28,7 @@
         - name: Add user to group Docker
           become: true
           user:
-            name: ansman
+            name: ansible
             shell: /bin/bash
             groups: docker
             append: yes
@@ -80,7 +80,7 @@
               dockerfile: Dockerfile
             source: build
             state: present
-          when: branch=="dev"
+          when: branch=="development"
             
         
         - name: "Build image Prod"
@@ -90,7 +90,7 @@
               path: "{{dests}}/{{proj}}"
             source: build
             state: present
-          when: branch=="prod"
+          when: branch=="production"
 
         - name: push docker hub
           args:
