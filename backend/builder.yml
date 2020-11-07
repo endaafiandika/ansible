@@ -25,7 +25,7 @@
       - name: Add user to group Docker
         become: true
         user:
-          name: ansman
+          name: ansible
           shell: /bin/bash
           groups: docker
           append: yes

@@ -1,11 +1,11 @@
 ---
-    hub: "afsanarozan"
-    proj: "cafe-backend"
-    dests: /home/ansman/project
-    repo: https://github.com/afsanarozan/cafe-backend.git
+    hub: "endaafiandika"
+    proj: "food-backend"
+    dests: /home/ansible/project
+    repo: https://github.com/endaafiandika/food-backend.git
     urlTest: "http://localhost"
     portTest: "8080"
-    user: ansman
-    remote_file: /home/ansman/cafe
+    user: ansible
+    remote_file: /home/ansible/food
     dockercompose: docker-compose.yml
    
